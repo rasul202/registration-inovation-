@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  general-db:
+    image: postgres
+    mem_limit: 200 M
+    environment:
+      POSTGRES_USER: registration
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: registration-db
+    networks:
+      - backend
+    volumes:
+      - general_data:/var/lib/postgresql/data
+    ports:
+      - "5438:5432"
+
+volumes:
+  general_data:
+
+networks:
+  backend:

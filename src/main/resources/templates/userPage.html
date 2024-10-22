@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .user-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .user-info {
+            margin-bottom: 25px;
+        }
+
+        .user-info label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .user-info span {
+            display: block;
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .actions {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .actions a {
+            display: inline-block;
+            background-color: #04AA6D; /* Green background */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .actions a:hover {
+            background-color: #039c5c; /* Darker green on hover */
+        }
+
+        .logout {
+            text-align: center;
+        }
+
+        .logout a {
+            color: #04AA6D; /* Green link */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="user-container">
+    <h1>User Dashboard</h1>
+
+    <!-- User Information Section -->
+    <div class="user-info">
+        <label>First Name:</label>
+        <span th:text="${user.firstName}"></span>
+
+        <label>Last Name:</label>
+        <span th:text="${user.lastName}"></span>
+
+        <label>Email:</label>
+        <span th:text="${user.email}"></span>
+    </div>
+
+    <!-- User Actions Section -->
+    <div class="actions">
+        <a href="/update-profile">Update Profile</a>
+        <a href="/view-activities">View Activities</a>
+    </div>
+
+    <!-- Logout Section -->
+    <div class="logout">
+        <p><a href="/logout">Logout</a></p>
+    </div>
+</div>
+
+</body>
+</html>

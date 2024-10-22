@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5438/registration-db #registration-db is DB_name
+    username: registration
+    password: mysecretpassword
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          :use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    show-sql: true #it will help us to see the sql queries in jpa methods
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.yml #here we give the location of changelog file that store the location of the changesets
+
+

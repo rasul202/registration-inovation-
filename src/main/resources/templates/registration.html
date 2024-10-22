@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 24px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-bottom: 16px;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            background-color: #fff;
+            border-color: #04AA6D;
+            outline: none;
+        }
+
+        button.registerbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+
+        button.registerbtn:hover {
+            background-color: #039c5c;
+        }
+
+        .signin {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .signin a {
+            color: dodgerblue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signin a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<form th:action="@{/registration/save}" method="post" th:object="${user}">
+    <div class="container">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+
+        <div th:text = "${existing_email}" class="error-message" style="color:red;">
+
+        </div><br>
+
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="Name" th:field="*{firstName}" id="Name" required>
+
+        <label for="lastName"><b>Last Name</b></label>
+        <input type="text" placeholder="Enter Last Name" name="lastName" th:field="*{lastName}" id="lastName" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" th:field="*{password}" id="psw" required>
+
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" th:field="*{email}" id="email" required>
+
+        <button type="submit" class="registerbtn">Register</button>
+    </div>
+
+    <div class="container signin">
+        <p>Already have an account? <a th:href = "@{/login}">Sign in</a>.</p>
+    </div>
+</form>
+
+</body>
+</html>

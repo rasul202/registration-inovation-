@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 16px;
+        }
+
+        .success-message {
+            color: green; /* Change color for success message */
+            text-align: center;
+            margin-bottom: 16px;
+            display: block; /* Change this to block for testing */
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+        }
+
+        .user-info label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .user-info span {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            color: white;
+            background-color: dodgerblue;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .buttons a:hover {
+            background-color: #1e90ff;
+        }
+
+        .logout {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .logout a {
+            color: dodgerblue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>User Dashboard</h1>
+    <p>Welcome to your dashboard!</p>
+
+    <!-- Success Message -->
+    <div class="success-message" th:if="${changePasswordSuccessMessage}">
+        <span th:text="${changePasswordSuccessMessage}">Password changed successfully!</span>
+    </div>
+
+    <div class="user-info">
+        <label>First Name:</label>
+        <span th:text="${user.firstName}"></span>
+
+        <label>Last Name:</label>
+        <span th:text="${user.lastName}"></span>
+
+        <label>Email:</label>
+        <span th:text="${user.email}"></span>
+    </div>
+
+    <!-- Buttons Section -->
+    <div class="buttons">
+        <a href="/change-password">Change Password</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+</body>
+</html>

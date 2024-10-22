@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .admin-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .admin-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .info-block {
+            text-align: left;
+            width: 45%;
+        }
+
+        .info-block label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .info-block span {
+            display: block;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .actions {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .actions a {
+            display: inline-block;
+            background-color: #04AA6D; /* Green background */
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 5px;
+        }
+
+        .actions a:hover {
+            background-color: #039c5c; /* Darker green on hover */
+        }
+
+        .logout {
+            text-align: center;
+        }
+
+        .logout a {
+            color: #04AA6D; /* Green link */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <h1>Admin Dashboard</h1>
+
+    <!-- Admin Information Section -->
+    <div class="admin-info">
+        <div class="info-block">
+            <label>First Name:</label>
+            <span th:text="${admin.firstName}"></span>
+
+            <label>Email:</label>
+            <span th:text="${admin.email}"></span>
+        </div>
+
+        <div class="info-block">
+            <label>Last Name:</label>
+            <span th:text="${admin.lastName}"></span>
+
+        </div>
+    </div>
+
+    <!-- Admin Actions Section -->
+    <div class="actions">
+        <a href="/manage-users">Manage Users</a>
+        <a href="/view-logs">View Logs</a>
+    </div>
+
+    <!-- Logout Section -->
+    <div class="logout">
+        <p><a href="/logout">Logout</a></p>
+    </div>
+</div>
+
+</body>
+</html>
