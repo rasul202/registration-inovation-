@@ -65,6 +65,20 @@
             text-decoration: underline;
         }
 
+        .forgot-password {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .forgot-password a {
+            color: dodgerblue;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
         .error {
             color: red;
             font-size: 0.9em;
@@ -77,7 +91,7 @@
 
 <div class="container">
     <h1>Login</h1>
-    <form th:action="@{/login/find}" method="post" th:object="${user}">
+    <form th:action="@{/login}" method="post" th:object="${user}">
 
         <label for="email"><b>Email</b></label>
         <input type="email" placeholder="Enter Email" name="email" id="email" th:field="*{email}" required>
@@ -95,6 +109,11 @@
             <p th:text="${wrong_credentials}">Incorrect email or password.</p>
         </div>
     </form>
+
+    <!-- Forgot Password link -->
+    <div class="forgot-password">
+        <p><a th:href="@{/forgot-password}">Forgot Password?</a></p>
+    </div>
 
     <!-- Sign Up link -->
     <div class="signup-link">

@@ -29,8 +29,8 @@ public class SecurityConfig2 {
                 .addFilterBefore(jwtAuthenticationFilter , CustomRegistrationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeHttpRequests()
-                .requestMatchers( "/registration/**" , "/login/**").permitAll()
-                .requestMatchers("/main" , "/change-password").authenticated()
+                .requestMatchers( "/registration/**" , "/login/**" , "/forgot-password", "/change-password-if-forget").permitAll()
+                .requestMatchers("/main" , "/change-password-if-logged-in").authenticated()
                 .requestMatchers("/user/**").hasAuthority("USER")
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .and().formLogin().disable()  // Disable default form login

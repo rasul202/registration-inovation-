@@ -29,13 +29,13 @@ public class CustomRegistrationFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(uri.equals("/registration") || uri.equals("/registration/save") || uri.equals("/login") || uri.equals("/login/find")){
-            filterChain.doFilter(request , response);
-        }else{
+        if(uri.equals("/main") || uri.equals("/admin/page") || uri.equals("/user/page")){
             if( authentication != null && authentication.isAuthenticated()){
                 filterChain.doFilter(request,response);
             }else
                 response.sendRedirect("/registration");
+        }else{
+            filterChain.doFilter(request , response);
         }
 
     }

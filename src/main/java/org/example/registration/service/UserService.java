@@ -2,24 +2,23 @@ package org.example.registration.service;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.example.registration.entity.RoleEntity;
 import org.example.registration.entity.UserEntity;
 import org.example.registration.enums.UserStatusEnum;
 import org.example.registration.exception.*;
 import org.example.registration.mapper.UserMapper;
-import org.example.registration.model.request.RoleRequest;
 import org.example.registration.model.request.SaveUserToDbRequest;
 import org.example.registration.model.request.UpdateUserEntityByEmailRequest;
 import org.example.registration.model.response.GetUserByEmailAndPasswordResponse;
 import org.example.registration.repository.UserRepository;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +43,7 @@ public class UserService {
         UserEntity userEntity = userMapper.toUserEntity(request);
 
         try {
-            userEntity.setRoles(getRoleEntitiesFromDb(request.getRoles()));
+            userEntity.setRoles(roleService.getRoleEntitiesFromDbByNames(request.getRoles()));
         } catch (NotFoundCompileTimeException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -61,13 +60,6 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public List<RoleEntity> getRoleEntitiesFromDb(List<RoleRequest> requestRoles) throws NotFoundCompileTimeException {
-        ArrayList<RoleEntity> roles = new ArrayList<>();
-        for (RoleRequest roleRequest :  requestRoles){
-            roles.add(roleService.getRoleByName(roleRequest.getName()));
-        }
-        return roles;
-    }
 
     public GetUserByEmailAndPasswordResponse getUserByEmailAndPassword(String email , String password) throws NotFoundCompileTimeException, WrongCridentialsException {
 
@@ -101,13 +93,17 @@ public class UserService {
                 ));
     }
 
-    private boolean verifyUserPassword(UserEntity user , String password){
+    public boolean verifyUserPassword(UserEntity user , String password){
         return passwordService.isMatches(password , user.getPassword());
     }
 
     public UserEntity getUserEntityFromSecurityContext() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Object object = authentication.getPrincipal();
+        UserDetails userDetails;
+        if(object instanceof UserDetails) {
+            userDetails = (UserDetails) authentication.getPrincipal();
+        }else return null;
 
         return fetchUserByEmail(userDetails.getUsername());
     }
@@ -120,7 +116,14 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void updateUserPasswordByEmail(String newPassword, String email) throws SamePasswordException {
+    public void updateUserPasswordByEmail(String newPassword, String repeatPassword ,  String email) throws SamePasswordException, RepeatedPasswordDontMatch {
+
+        if( !newPassword.equals(repeatPassword))
+                throw new RepeatedPasswordDontMatch(
+                        "new password and repeated password don't match",
+                        500,
+                        LocalDateTime.now()
+                );
 
         UserEntity user = fetchUserByEmail(email);
 
@@ -139,4 +142,15 @@ public class UserService {
                 email
         );
     }
+
+
+    public void setUserToSecurityContext(String email, String password, List<String> roles){
+        List<SimpleGrantedAuthority> authorities = roles.stream()
+                .map(SimpleGrantedAuthority::new) // map role to a SimpleGrantedAuthority object
+                .toList();
+
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(email , password , authorities));
+    }
+
+
 }

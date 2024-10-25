@@ -16,3 +16,18 @@ spring:
     change-log: classpath:liquibase/changelog-master.yml #here we give the location of changelog file that store the location of the changesets
 
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rsultagisoy@gmail.com
+    password:  eabu fczp gisj xqzr
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+email:
+  forgot-password:
+    lifetime-minutes: 5

@@ -105,7 +105,7 @@
 
     <!-- Success Message -->
     <div class="success-message" th:if="${changePasswordSuccessMessage}">
-        <span th:text="${changePasswordSuccessMessage}">Password changed successfully!</span>
+        <span >Password changed successfully!</span>
     </div>
 
     <div class="user-info">
@@ -121,7 +121,7 @@
 
     <!-- Buttons Section -->
     <div class="buttons">
-        <a href="/change-password">Change Password</a>
+        <a href="/change-password-if-logged-in">Change Password</a>
         <a href="/logout">Logout</a>
     </div>
 </div>

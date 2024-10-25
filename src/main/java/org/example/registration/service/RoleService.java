@@ -8,12 +8,15 @@ import org.example.registration.entity.RoleEntity;
 import org.example.registration.enums.RoleStatusEnum;
 import org.example.registration.exception.NotFoundCompileTimeException;
 import org.example.registration.mapper.RoleMapper;
+import org.example.registration.model.request.RoleRequest;
 import org.example.registration.model.request.SaveRoleToDbRequest;
 import org.example.registration.repository.RoleRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,6 +47,15 @@ public class RoleService {
                 HttpStatus.NOT_FOUND.value(),
                 LocalDateTime.now()
         ));
+    }
+
+    //this method will receive List that contains RoleDto and convert them to RoleEntities (for getting entities in Detached State)
+    public List<RoleEntity> getRoleEntitiesFromDbByNames(List<RoleRequest> requestRoles) throws NotFoundCompileTimeException {
+        ArrayList<RoleEntity> roles = new ArrayList<>();
+        for (RoleRequest roleRequest :  requestRoles){
+            roles.add(getRoleByName(roleRequest.getName()));
+        }
+        return roles;
     }
 
     public Optional<RoleEntity> fetchRoleByName(String name , Integer status ){

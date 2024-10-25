@@ -6,17 +6,15 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-
-//TODO if you want to avoid from boilerplate code : instead of throwing exception and handling it in handler method , return the global exception response directly
 @Getter
 @Setter
 @NoArgsConstructor
-public class NotFoundRunTimeException extends RuntimeException{
+public class RepeatedPasswordDontMatch extends Exception{
 
     Integer status;
     LocalDateTime occurredAt;
 
-    public NotFoundRunTimeException(String message, Integer status, LocalDateTime occurredAt) {
+    public RepeatedPasswordDontMatch(String message, Integer status, LocalDateTime occurredAt) {
         super(message);
         this.status = status;
         this.occurredAt = occurredAt;

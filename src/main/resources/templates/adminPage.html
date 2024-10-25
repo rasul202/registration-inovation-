@@ -99,15 +99,15 @@
     <div class="admin-info">
         <div class="info-block">
             <label>First Name:</label>
-            <span th:text="${admin.firstName}"></span>
+            <span th:text="${user.firstName}"></span>
 
             <label>Email:</label>
-            <span th:text="${admin.email}"></span>
+            <span th:text="${user.email}"></span>
         </div>
 
         <div class="info-block">
             <label>Last Name:</label>
-            <span th:text="${admin.lastName}"></span>
+            <span th:text="${user.lastName}"></span>
 
         </div>
     </div>
@@ -115,7 +115,7 @@
     <!-- Admin Actions Section -->
     <div class="actions">
         <a href="/manage-users">Manage Users</a>
-        <a href="/view-logs">View Logs</a>
+        <a href="/change-password-if-logged-in">Change password</a>
     </div>
 
     <!-- Logout Section -->
